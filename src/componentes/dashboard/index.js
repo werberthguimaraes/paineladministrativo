@@ -32,7 +32,11 @@ export default function Dashboard() {
       const data = res.data.ModelMonitorService[0];
       setMonitor(data.total_instalado);
       setDadosMonitor({
-        labels: [`Ativo ${data.total_ativo}`, `Parado ${data.total_parado}`],
+        labels: [
+          `Total ${data.total_instalado}`,
+          `Ativo ${data.total_ativo}`,
+          `Parado ${data.total_parado}`,
+        ],
         datasets: [
           {
             label: "iServidorTarefa",
@@ -41,7 +45,7 @@ export default function Dashboard() {
             borderWidth: 2,
             hoverBackgroundColor: "rgba(255,99,132,0.4)",
             hoverBorderColor: "rgba(255,99,132,1)",
-            data: [data.total_ativo, data.total_parado],
+            data: [data.total_instalado, data.total_ativo, data.total_parado],
           },
         ],
       });
@@ -54,6 +58,7 @@ export default function Dashboard() {
       setTotalClientes(data.total_clientes);
       setDadosMonitorInstall({
         labels: [
+          `Total ${data.total_clientes}`,
           `Instalado ${data.total_instalado}`,
           `Não instalado ${data.total_desinstalado}`,
         ],
@@ -65,7 +70,11 @@ export default function Dashboard() {
             borderWidth: 2,
             hoverBackgroundColor: "#1E90FF",
             hoverBorderColor: "#008080",
-            data: [data.total_instalado, data.total_desinstalado],
+            data: [
+              data.total_clientes,
+              data.total_instalado,
+              data.total_desinstalado,
+            ],
           },
         ],
       });
