@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 
 ### Detalhe
-![details](github/details.gif)
+![details](https://github.com/werberthguimaraes/paineladministrativo/blob/master/details.gif)
 
 ### `npm test`
 
