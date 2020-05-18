@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 
 ### Detalhe
-![details](github/details.png)
+![details](github/details.gif)
 
 ### `npm test`
 
