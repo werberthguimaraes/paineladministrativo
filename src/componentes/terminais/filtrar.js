@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import api from "./../../services/api";
 
-export default function Filtro(value) {
+import TerminaisContext from "./terminaisContext";
+
+export default function Filtro() {
+  const context = useContext(TerminaisContext);
+
+  //console.log(context.terminais);
+  const value = context.inicialTerminais;
+
   const [filtroVersao, setFiltroVersao] = useState("");
   const [codCliente, setCodCliente] = useState("");
   const [nfe, setNfe] = useState(-1);
@@ -11,6 +18,7 @@ export default function Filtro(value) {
   const [mdfe, setMdfe] = useState(-1);
   const [sped, setSped] = useState(-1);
   const [gestor, setGestor] = useState(-1);
+  const [label, setLabel] = useState("Filtrar");
 
   const [versoesFiltro, setVersoesFiltro] = useState([]);
 
@@ -25,11 +33,11 @@ export default function Filtro(value) {
   }, []);
 
   function filtrar(e) {
-    console.log(value.value);
+    // console.log(value);
 
     e.preventDefault();
 
-    const result = value.value
+    const result = value
       .filter((obj) => {
         if (nfe != -1) return obj.usanfe == nfe;
         else return obj;
@@ -64,8 +72,21 @@ export default function Filtro(value) {
         else return obj;
       });
 
-    console.log(result);
-    // setTerminais(result);
+    context.setTerminais(result);
+    //console.log(context.terminais);
+    //console.log(context.inicialTerminais);
+    //console.log(result);
+    setLabel("Filtrar");
+  }
+  function limpar() {
+    setFiltroVersao("");
+    setCodCliente("");
+    setNfe(-1);
+    setNfce(-1);
+    setNfse(-1);
+    setMdfe(-1);
+    setSped(-1);
+    setGestor(-1);
   }
 
   return (
@@ -76,6 +97,7 @@ export default function Filtro(value) {
             <div className="col-md-2">
               <label>Lista de Versões</label>
               <select
+                value={filtroVersao}
                 onChange={(e) => setFiltroVersao(e.target.value)}
                 className="form-control"
               >
@@ -92,17 +114,19 @@ export default function Filtro(value) {
             <div className="col-md-1">
               <label>Cód Cliente</label>
               <input
+                value={codCliente}
                 id="pesquisa"
                 onChange={(e) => setCodCliente(e.target.value)}
                 type="text"
                 className="form-control"
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-6">
               <div className="row">
                 <div className="col-md-2">
                   <label>NF-e</label>
                   <select
+                    value={nfe}
                     onChange={(e) => setNfe(e.target.value)}
                     className="form-control"
                   >
@@ -114,6 +138,7 @@ export default function Filtro(value) {
                 <div className="col-md-2">
                   <label>NFC-e</label>
                   <select
+                    value={nfce}
                     onChange={(e) => setNfce(e.target.value)}
                     className="form-control"
                   >
@@ -125,6 +150,7 @@ export default function Filtro(value) {
                 <div className="col-md-2">
                   <label>MDF-e</label>
                   <select
+                    value={mdfe}
                     onChange={(e) => setMdfe(e.target.value)}
                     className="form-control"
                   >
@@ -136,6 +162,7 @@ export default function Filtro(value) {
                 <div className="col-md-2">
                   <label>NFS-e</label>
                   <select
+                    value={nfse}
                     onChange={(e) => setNfse(e.target.value)}
                     className="form-control"
                   >
@@ -147,6 +174,7 @@ export default function Filtro(value) {
                 <div className="col-md-2">
                   <label>SPED</label>
                   <select
+                    value={sped}
                     onChange={(e) => setSped(e.target.value)}
                     className="form-control"
                   >
@@ -158,6 +186,7 @@ export default function Filtro(value) {
                 <div className="col-md-2">
                   <label>Gestor</label>
                   <select
+                    value={gestor}
                     onChange={(e) => setGestor(e.target.value)}
                     className="form-control"
                   >
@@ -169,15 +198,29 @@ export default function Filtro(value) {
               </div>
             </div>
 
-            <div className="col-md-1">
+            <div className="col-md-0">
               <br />
-              <button className="btn btn-primary" type="submit">
-                Filtrar
+              <button
+                onClick={() => setLabel("Aguarde..")}
+                className="btn btn-primary"
+                type="submit"
+              >
+                {label}
+              </button>
+            </div>
+            <div className="col-md-0">
+              <br />
+              <button
+                onClick={() => limpar()}
+                className="btn btn-light"
+                type="submit"
+              >
+                Limpar
               </button>
             </div>
             <div className="col-md-1">
               <label>
-                Total <strong>{123}</strong>
+                Total <strong>{context.terminais.length}</strong>
               </label>
             </div>
           </div>

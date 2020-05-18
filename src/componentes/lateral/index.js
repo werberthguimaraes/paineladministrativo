@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import logo from "./../../assets/inorte2.png";
 
 export default function MenuLateral() {
   return (
     <ul
-      className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+      style={{ position: "fixed", background: "#2e4f9e" }}
+      className="navbar-nav  sidebar sidebar-dark accordion"
       id="accordionSidebar"
     >
       <a
@@ -16,7 +18,8 @@ export default function MenuLateral() {
           <i className="fas fa-laugh-wink"></i>
         </div>
         <div className="sidebar-brand-text mx-3">
-          InoDash <sup>0.1.1</sup>
+          <img width={180} src={logo} />
+          <sup> 0.1.1</sup>
         </div>
       </a>
 
@@ -51,10 +54,6 @@ export default function MenuLateral() {
       </li>
 
       <hr className="sidebar-divider d-none d-md-block" />
-
-      <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
     </ul>
   );
 }

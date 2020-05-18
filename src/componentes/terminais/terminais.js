@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useContext } from "react";
 import { AiFillWindows, AiFillInfoCircle } from "react-icons/ai";
 import {
   FaRegSquare,
@@ -10,16 +10,18 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import api from "../../services/api";
 
+import TerminaisContext from "./terminaisContext";
+
 import "./style.css";
 
-export default function Lista(value) {
-  const terminais = value.terminais;
+export default function Lista() {
+  const context = useContext(TerminaisContext);
 
-  console.log(value);
+  const lista = context.terminais;
 
   //setTerminais(value);
 
-  ///console.log(value);
+  //console.log(lista);
 
   const [listaTerminais, setListaTerminais] = useState([]);
   const [listaVersoes, setListaVersoes] = useState([]);
@@ -62,7 +64,7 @@ export default function Lista(value) {
   return (
     <Fragment>
       <div className="row">
-        {terminais.map((a) => (
+        {lista.map((a) => (
           <div key={a.id} className="col-md-3">
             <div className="espaco-card card shadow ">
               <div
@@ -205,11 +207,17 @@ export default function Lista(value) {
                     <div className="col-xl-6">
                       Processador: <strong>{item.processador}</strong>
                       <br />
+                      Família: <strong>{item.familia}</strong>
+                      <br />
+                      Threads: <strong>{item.threads}</strong>
+                      <br />
+                      FileSystem: <strong>{item.filesystem}</strong>
+                      <br />
+                      Memória: <strong>{item.memoria}</strong>
+                      <br />
                       Sistema: <strong>{item.os}</strong>
                       <br />
                       Dominio: <strong>{item.dominio}</strong>
-                      <br />
-                      FileSystem: <strong>{item.filesystem}</strong>
                       <br />
                       Usuário: <strong>{item.usuario}</strong>
                       <br />

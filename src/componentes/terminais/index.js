@@ -22,7 +22,6 @@ export default function Terminais() {
       .get("terminalresumido")
       .then((res) => {
         if (res) {
-          console.log(res.data.ModelTerminalResumido);
           setInicialTerminais(res.data.ModelTerminalResumido);
           setTerminais(res.data.ModelTerminalResumido);
           setLoading(false);
@@ -35,14 +34,18 @@ export default function Terminais() {
 
   useEffect(() => {
     getTerminais();
-    console.log(inicialTerminais);
+    //console.log(inicialTerminais);
   }, []);
 
   return (
     <Fragment>
       {loading && <Loader />}
-      <TerminaisContext.Provider value={{ terminais: this.inicialTerminais }}>
-        <Filtro value={inicialTerminais} />
+      <TerminaisContext.Provider
+        value={{ inicialTerminais, terminais, setTerminais }}
+      >
+        <Filtro />
+        <hr className="sidebar-divider" />
+        <Lista />
       </TerminaisContext.Provider>
     </Fragment>
   );
