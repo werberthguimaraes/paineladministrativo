@@ -10,7 +10,7 @@ import Certificados from "./componentes/certificados";
 function App() {
   return (
     <div id="wrapper">
-      <BrowserRouter>
+      <BrowserRouter basename="/monitor">
         <MenuLateral />
 
         <div
